@@ -61,65 +61,10 @@ namespace BurglarGame
                     continue;
                 }
                 toolView.SetToolInfo(toolInfo);
-                toolView.SetApplyButtonInteractable(GameState.IsToolCanBeUsed(toolInfo, _gameState.PinValues, 
+                toolView.SetApplyButtonInteractable(IsToolCanBeUsed(toolInfo, _gameState.PinValues, 
                     _minPinValue, _maxPinValue));
             }
         }
-
-        //private bool IsToolUsingResultInPinValuesRange(GameState gameState, ToolInfo toolInfo)
-        //{
-        //    bool resultPinValueIsInRange = true;
-
-        //    for (int i = 0; i < gameState.PinValues.Length; i++)
-        //    {
-        //        int pinValue = gameState.PinValues[i];
-        //        int toolChangeValue = toolInfo.PinChangeValues[i];
-        //        int resultPinValue = pinValue + toolChangeValue;
-        //        if (resultPinValue < _minPinValue
-        //            || resultPinValue > _maxPinValue)
-        //        {
-        //            resultPinValueIsInRange = false;
-        //            break;
-        //        }
-        //    }
-
-        //    return resultPinValueIsInRange;
-        //}
-
-        //private bool IsToolCanBeUsed(GameState gameState, ToolInfo toolInfo)
-        //{
-        //    bool toolCanChangePins = false;
-        //    for (int i = 0; i < gameState.PinValues.Length; i++)
-        //    {
-        //        int pinValue = gameState.PinValues[i];
-        //        int toolChangeValue = toolInfo.PinChangeValues[i];
-        //        int resultPinValue = Mathf.Clamp(pinValue + toolChangeValue, _minPinValue, _maxPinValue);
-        //        if (resultPinValue != pinValue)
-        //        {
-        //            toolCanChangePins = true;
-        //            break;
-        //        }
-        //    }
-
-        //    return toolCanChangePins;
-
-        //    //bool resultPinValueIsInRange = true;
-
-        //    //for (int i = 0; i < gameState.PinValues.Length; i++)
-        //    //{
-        //    //    int pinValue = gameState.PinValues[i];
-        //    //    int toolChangeValue = toolInfo.PinChangeValues[i];
-        //    //    int resultPinValue = pinValue + toolChangeValue;
-        //    //    if (resultPinValue < _minPinValue
-        //    //        || resultPinValue > _maxPinValue)
-        //    //    {
-        //    //        resultPinValueIsInRange = false;
-        //    //        break;
-        //    //    }
-        //    //}
-
-        //    //return resultPinValueIsInRange;
-        //}
 
         private void RegisterEventListeners()
         {
@@ -141,9 +86,27 @@ namespace BurglarGame
             _eventsHandler.ToolUseRequested -= OnToolUseRequested;
         }
 
+        private bool IsToolCanBeUsed(ToolInfo toolInfo, int[] pinValues, int minPinValue, int maxPinValue)
+        {
+            bool toolCanChangePins = false;
+            for (int i = 0; i < pinValues.Length; i++)
+            {
+                int pinValue = pinValues[i];
+                int toolChangeValue = toolInfo.PinChangeValues[i];
+                int resultPinValue = Mathf.Clamp(pinValue + toolChangeValue, minPinValue, maxPinValue);
+                if (resultPinValue != pinValue)
+                {
+                    toolCanChangePins = true;
+                    break;
+                }
+            }
+
+            return toolCanChangePins;
+        }
+
         private void OnToolUseRequested(ToolInfo toolInfo)
         {
-            if (GameState.IsToolCanBeUsed(toolInfo, _gameState.PinValues, _minPinValue, _maxPinValue))
+            if (IsToolCanBeUsed(toolInfo, _gameState.PinValues, _minPinValue, _maxPinValue))
             {
                 _eventsHandler.RaiseToolUseConfirmed(toolInfo);
             }

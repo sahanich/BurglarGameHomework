@@ -3,19 +3,6 @@ using UnityEngine;
 
 namespace BurglarGame
 {
-    //public class GameManager : MonoBehaviour
-    //{
-
-    //}
-
-    //public class TimeController
-    //{
-    //    internal void Init(BurglarGameSettings gameSettings, TimerView timerView)
-    //    {
-    //        //throw new NotImplementedException();
-    //    }
-    //}
-
     [CreateAssetMenu(fileName = "GameSettings", menuName = "ScriptableObjects/BurglarGameSettings")]
     public class BurglarGameSettings : ScriptableObject
     {
