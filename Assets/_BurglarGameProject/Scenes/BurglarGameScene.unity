@@ -1404,6 +1404,51 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a1611149518f314da7c107066894c51, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1063195836
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1063195838}
+  - component: {fileID: 1063195837}
+  m_Layer: 0
+  m_Name: GameTimer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1063195837
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1063195836}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dbd2b131b8d433e4fbd1d45e73334a24, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TimerUpdateFrequency: 1
+--- !u!4 &1063195838
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1063195836}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1298487638}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1126081417
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1772,6 +1817,8 @@ MonoBehaviour:
   PinSetView: {fileID: 81959976}
   ToolSetView: {fileID: 864164892}
   GameOverView: {fileID: 1577424737}
+  GameTimerView: {fileID: 1063195837}
+  SecondsToLoseView: {fileID: 8775436366048478288}
 --- !u!4 &1298487638
 Transform:
   m_ObjectHideFlags: 0
@@ -1784,7 +1831,8 @@ Transform:
   m_LocalPosition: {x: -19.006529, y: -17.769886, z: 105.636246}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1063195838}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1378932566
@@ -2933,6 +2981,7 @@ GameObject:
   - component: {fileID: 7158459172518835903}
   - component: {fileID: 2030523797832706198}
   - component: {fileID: 8775436366048478287}
+  - component: {fileID: 8775436366048478288}
   m_Layer: 5
   m_Name: TimerPanel
   m_TagString: Untagged
@@ -3038,6 +3087,20 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &8775436366048478288
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6828569461786823683}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d0990f7387c851438fc8cdd292e0f77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SecondsToLoseSliderImage: {fileID: 1764862552}
+  SecondsToLoseText: {fileID: 84900871094144362}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

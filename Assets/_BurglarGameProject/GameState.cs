@@ -25,11 +25,11 @@ namespace BurglarGame
     public class GameState
     {
         private int[] _pinValues;
-        private int _secondsToGameOver;
+        private int _secondsToLoseLeft;
         private ToolInfo[] _toolInfos;
 
         public int[] PinValues => _pinValues;
-        public int SecondsToGameOver => _secondsToGameOver;
+        public int SecondsToLoseLeft => _secondsToLoseLeft;
         public ToolInfo[] ToolInfos => _toolInfos;
 
         public static bool IsToolCanBeUsed(ToolInfo toolInfo, int[] pinValues, int minPinValue, int maxPinValue)
@@ -55,19 +55,9 @@ namespace BurglarGame
             _pinValues = (int[])pinValues.Clone();
         }
 
-        //public void ApplyToolValues(ToolInfo toolInfo)
-        //{
-        //    for (int i = 0; i < toolInfo.PinChangeValues.Length; i++)
-        //    {
-        //        int newPinValue = UnityEngine.Mathf.Clamp(toolInfo.PinChangeValues[i];
-        //        _pinValues[i] = newPinValue;
-        //        //_pinValues[i] += UnityEngine.Mathf.Clamp(toolInfo.PinChangeValues[i];
-        //    }
-        //}
-
-        public void SetSecondsToGameOver(int secondsToGameOver)
+        public void SetSecondsToLoseLeft(int secondsToLoseLeft)
         {
-            _secondsToGameOver = secondsToGameOver;
+            _secondsToLoseLeft = secondsToLoseLeft;
         }
 
         public void SetToolInfos(ToolInfo[] toolInfos)

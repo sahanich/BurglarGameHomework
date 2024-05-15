@@ -40,11 +40,6 @@ namespace BurglarGame
             RegisterEventListeners();
         }
 
-        public void Deinit()
-        {
-            UnregisterEventListeners();
-        }
-
         public void SetState(GameState gameState)
         {
             _gameState = gameState;

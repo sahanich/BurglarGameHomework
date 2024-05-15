@@ -1,9 +1,7 @@
-using System;
 using UnityEngine;
 
 namespace BurglarGame
 {
-
     public class GameManager : MonoBehaviour
     {
         [SerializeField]
@@ -14,11 +12,10 @@ namespace BurglarGame
         private ToolSetView ToolSetView;
         [SerializeField]
         private GameOverView GameOverView;
-        //public TimerView TimerView;
-
-        //private PinsController PinsController;
-        //private ToolsController ToolsController;
-        //private TimeController TimeController;
+        [SerializeField]
+        private GameTimerView GameTimerView;
+        [SerializeField]
+        private SecondsToLoseView SecondsToLoseView;
 
         private GameState _gameState;
         private BurglarGameEventsHandler _eventsHandler;
@@ -29,12 +26,29 @@ namespace BurglarGame
             PinSetView.Init(GameSettings);
             ToolSetView.Init(GameSettings, _eventsHandler);
             GameOverView.Init(_eventsHandler);
+            GameTimerView.Init(_eventsHandler);
+            SecondsToLoseView.Init(GameSettings);
         }
 
         private void OnEnable()
         {
             _eventsHandler.ToolUseConfirmed += OnToolUsing;
             _eventsHandler.RestartGameRequested += OnRestartGameRequested;
+            _eventsHandler.GameTimerUpdated += OnGameTimerUpdated;
+        }
+
+        private void OnGameTimerUpdated()
+        {
+            int newSecondsToLoseLeft = Mathf.Max(0, GameSettings.SecondsToLose - (int)GameTimerView.CurrentGameTimeInSec);
+            
+            _gameState.SetSecondsToLoseLeft(newSecondsToLoseLeft);
+            SecondsToLoseView.SetState(_gameState);
+
+            if (_gameState.SecondsToLoseLeft <= 0)
+            {
+                GameTimerView.StopGameTimer();
+                GameOverView.ShowLosePanel();
+            }
         }
 
         private void OnDisable()
@@ -51,14 +65,14 @@ namespace BurglarGame
         private void ResetGame()
         {
             GameOverView.Hide();
-            //PinsController.Init(GameSettings, PinSetView);
-            //ToolsController.Init(GameSettings, ToolSetView);
-            //TimeController.Init(GameSettings, TimerView);
 
             _gameState = CreateGameState();
 
             PinSetView.SetState(_gameState);
             ToolSetView.SetState(_gameState);
+            SecondsToLoseView.SetState(_gameState);
+
+            GameTimerView.StartGameTimer();
         }
 
         private GameState CreateGameState()
@@ -135,7 +149,7 @@ namespace BurglarGame
             ShuffleArray(randomOrderedToolInfos);
 
             int currentToolIndex = 0;
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < GameSettings.CodingIterationCount; i++)
             {
                 int tryCountToApplyTool = randomOrderedToolInfos.Length;
                 
@@ -248,6 +262,7 @@ namespace BurglarGame
 
             if (IsWinState(_gameState))
             {
+                GameTimerView.StopGameTimer();
                 GameOverView.ShowWinPanel();
             }
         }

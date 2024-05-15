@@ -7,6 +7,7 @@ namespace BurglarGame
         public event Action<ToolInfo> ToolUseRequested;
         public event Action<ToolInfo> ToolUseConfirmed;
         public event Action RestartGameRequested;
+        public event Action GameTimerUpdated;
 
         public void RaiseToolUseRequested(ToolInfo toolInfo)
         {
@@ -21,6 +22,11 @@ namespace BurglarGame
         public void RaiseRestartGameRequested()
         {
             RestartGameRequested?.Invoke();
+        }
+
+        public void RaiseTimerUpdated()
+        {
+            GameTimerUpdated?.Invoke();
         }
     }
 }

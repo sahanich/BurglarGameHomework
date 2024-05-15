@@ -33,11 +33,10 @@ namespace BurglarGame
         [field: SerializeField]
         public ToolInfo[] Tools { get; private set; }
 
-        //[field: SerializeField]
-        //public ToolType[] Tools { get; private set; } = new[] { ToolType.Drill, ToolType.Hammer, ToolType.SkeletonKey };
-        //[field: SerializeField]
-        //public int MinToolPinChangeValue { get; private set; } = -2;
-        //[field: SerializeField]
-        //public int MaxToolPinChangeValue { get; private set; } = 2;
+        [field: Header("Difficulty Settings")]
+        [field: SerializeField]
+        public int CodingIterationCount { get; private set; } = 5;
+        [field: SerializeField]
+        public int SecondsToLose { get; private set; } = 60;
     }
 }
