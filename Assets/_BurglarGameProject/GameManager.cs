@@ -54,7 +54,7 @@ namespace BurglarGame
 
             _gameState = CreateGameState();
 
-            PinSetView.SetState(_gameState);
+            PinSetView.SetInitialState(_gameState);
             ToolSetView.SetState(_gameState);
             SecondsToLoseView.SetState(_gameState);
 

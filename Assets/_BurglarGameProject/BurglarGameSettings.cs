@@ -25,5 +25,9 @@ namespace BurglarGame
         public int CodingIterationCount { get; private set; } = 5;
         [field: SerializeField]
         public int SecondsToLose { get; private set; } = 60;
+
+        [field: Header("Display Settings")]
+        [field: SerializeField]
+        public float PinValueChangeAnimationDuration { get; private set; } = 0.4f;
     }
 }
