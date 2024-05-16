@@ -24,6 +24,6 @@ MonoBehaviour:
   - <ToolType>k__BackingField: 3
     <PinChangeValues>k__BackingField: ffffffff0100000001000000
   <CodingIterationCount>k__BackingField: 5
-  <SecondsToLose>k__BackingField: 5
+  <SecondsToLose>k__BackingField: 60
   <PinValueChangeAnimationDuration>k__BackingField: 0.4
   <GameOverPanelAnimationDuration>k__BackingField: 0.5

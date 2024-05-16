@@ -96,15 +96,15 @@ namespace BurglarGame
 
         private bool IsToolCanBeUsed(ToolInfo toolInfo, int[] pinValues, int minPinValue, int maxPinValue)
         {
-            bool toolCanChangePins = false;
+            bool toolCanChangePins = true;
             for (int i = 0; i < pinValues.Length; i++)
             {
                 int pinValue = pinValues[i];
                 int toolChangeValue = toolInfo.PinChangeValues[i];
-                int resultPinValue = Mathf.Clamp(pinValue + toolChangeValue, minPinValue, maxPinValue);
-                if (resultPinValue != pinValue)
+                int resultPinValue = pinValue + toolChangeValue;
+                if (resultPinValue < minPinValue || resultPinValue > maxPinValue)
                 {
-                    toolCanChangePins = true;
+                    toolCanChangePins = false;
                     break;
                 }
             }
