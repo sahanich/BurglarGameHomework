@@ -1,5 +1,4 @@
-﻿using System.ComponentModel;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace BurglarGame
 {
@@ -29,5 +28,7 @@ namespace BurglarGame
         [field: Header("Display Settings")]
         [field: SerializeField]
         public float PinValueChangeAnimationDuration { get; private set; } = 0.4f;
+        [field: SerializeField]
+        public float GameOverPanelAnimationDuration { get; private set; } = 0.5f;
     }
 }

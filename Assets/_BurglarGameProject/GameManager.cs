@@ -25,7 +25,7 @@ namespace BurglarGame
             _eventsHandler = new();
             PinSetView.Init(GameSettings);
             ToolSetView.Init(GameSettings, _eventsHandler);
-            GameOverView.Init(_eventsHandler);
+            GameOverView.Init(GameSettings, _eventsHandler);
             GameTimerView.Init(_eventsHandler);
             SecondsToLoseView.Init(GameSettings);
         }
@@ -45,11 +45,13 @@ namespace BurglarGame
 
         private void Start()
         {
-            ResetGame();
+            RestartGame();
         }
 
-        private void ResetGame()
+        private void RestartGame()
         {
+            StopAllCoroutines();
+
             GameOverView.Hide();
 
             _gameState = CreateGameState();
@@ -58,7 +60,19 @@ namespace BurglarGame
             ToolSetView.SetState(_gameState);
             SecondsToLoseView.SetState(_gameState);
 
+            PlayGame();
+        }
+
+        private void PlayGame()
+        {
             GameTimerView.StartGameTimer();
+            ToolSetView.SetToolsInteractable(true);
+        }
+
+        private void StopGame()
+        {
+            GameTimerView.StopGameTimer();
+            ToolSetView.SetToolsInteractable(false);
         }
 
         private GameState CreateGameState()
@@ -136,7 +150,7 @@ namespace BurglarGame
             for (int i = 0; i < GameSettings.CodingIterationCount; i++)
             {
                 int tryCountToApplyTool = randomOrderedToolInfos.Length;
-                
+
                 while (tryCountToApplyTool > 0)
                 {
                     ToolInfo toolInfo = randomOrderedToolInfos[currentToolIndex];
@@ -183,7 +197,7 @@ namespace BurglarGame
 
             for (int i = 0; i < toolInfo.PinChangeValues.Length; i++)
             {
-                newPinValues[i] = Mathf.Clamp(newPinValues[i] + toolInfo.PinChangeValues[i], 
+                newPinValues[i] = Mathf.Clamp(newPinValues[i] + toolInfo.PinChangeValues[i],
                     GameSettings.MinPinValue, GameSettings.MaxPinValue);
             }
 
@@ -194,14 +208,14 @@ namespace BurglarGame
 
             if (IsWinState(_gameState))
             {
-                GameTimerView.StopGameTimer();
+                StopGame();
                 GameOverView.ShowWinPanel();
             }
         }
 
         private void OnRestartGameRequested()
         {
-            ResetGame();
+            RestartGame();
         }
 
         private void OnGameTimerUpdated()
@@ -213,7 +227,7 @@ namespace BurglarGame
 
             if (_gameState.SecondsToLoseLeft <= 0)
             {
-                GameTimerView.StopGameTimer();
+                StopGame();
                 GameOverView.ShowLosePanel();
             }
         }

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Text;
 using TMPro;
 using UnityEngine;
@@ -16,11 +15,11 @@ namespace BurglarGame
             [ToolType.SkeletonKey] = "отмычка",
         };
 
-        //public Action<ToolInfo> ApplyButtonClicked;
-
         [field: SerializeField]
         public ToolType ToolType { get; private set; }
 
+        [SerializeField]
+        private AudioSource ToolAudioSource;
         [SerializeField]
         private TMP_Text ToolInfluenceToLockText;
         [SerializeField]
@@ -50,43 +49,10 @@ namespace BurglarGame
             RefreshApplyButtonText();
         }
 
-        //public bool CanBeUsed(int[] pinValues, int minPinValue, int maxPinValue)
-        //{
-        //    bool doArraysMuchEachOther = pinValues != null && _pinChangeValues != null
-        //        && pinValues.Length == _pinChangeValues.Length;
-
-        //    if (!doArraysMuchEachOther)
-        //    {
-        //        Debug.LogError("PinData and ToolData don't match");
-        //        return false;
-        //    }
-
-        //    for (int i = 0; i < pinValues.Length; i++)
-        //    {
-        //        int applyingResult = pinValues[i] + _pinChangeValues[i];
-        //        if (applyingResult < minPinValue || applyingResult > maxPinValue)
-        //        {
-        //            return false;
-        //        }
-        //    }
-
-        //    return true;
-        //}
-
         public void SetApplyButtonInteractable(bool interactable)
         {
             ApplyButton.interactable = interactable;
         }
-
-        //public int GetPinChangeValue(int pinIndex)
-        //{
-        //    if (_pinChangeValues == null || pinIndex < 0 || pinIndex >= _pinChangeValues.Length)
-        //    {
-        //        Debug.LogError("Trying to get unexisting pin value");
-        //        return 0;
-        //    }
-        //    return _pinChangeValues[pinIndex];
-        //}
 
         private void RefreshApplyButtonText()
         {
@@ -132,7 +98,12 @@ namespace BurglarGame
         private void OnApplyButtonClick()
         {
             _eventsHandler?.RaiseToolUseRequested(_toolInfo);
-            //ApplyButtonClicked?.Invoke(_toolInfo);
+
+            if (ToolAudioSource.isPlaying)
+            {
+                ToolAudioSource.Stop();
+            }
+            ToolAudioSource.Play();
         }
     }
 }

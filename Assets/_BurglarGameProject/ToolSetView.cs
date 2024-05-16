@@ -40,6 +40,14 @@ namespace BurglarGame
             RegisterEventListeners();
         }
 
+        public void SetToolsInteractable(bool interactable)
+        {
+            foreach (var tool in ToolViews)
+            {
+                tool.SetApplyButtonInteractable(interactable);
+            }
+        }
+
         public void SetState(GameState gameState)
         {
             _gameState = gameState;
