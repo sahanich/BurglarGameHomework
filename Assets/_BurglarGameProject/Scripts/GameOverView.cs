@@ -1,12 +1,23 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace BurglarGame
 {
-    public class GameOverView : MonoBehaviour
+    public interface IGameOverView
     {
+        public event Action RestartButtonClicked;
+        public void ShowWinScreen();
+        public void ShowLoseScreen();
+        public void Hide();
+    }
+
+    public class GameOverView : MonoBehaviour, IGameOverView
+    {
+        public event Action RestartButtonClicked;
+        
         [SerializeField]
         private GameObject GameOverPanel;
         [SerializeField]
@@ -20,8 +31,7 @@ namespace BurglarGame
         [SerializeField]
         private Button RestartButton;
 
-        private BurglarGameSettings _gameSettings;
-        private BurglarGameEventsHandler _eventsHandler;
+        private float _gameOverPanelAnimationDuration;
 
         private void OnEnable()
         {
@@ -33,20 +43,24 @@ namespace BurglarGame
             RestartButton.onClick.RemoveListener(OnRestartButtonClick);
         }
 
-        public void Init(BurglarGameSettings gameSettings, BurglarGameEventsHandler eventsHandler)
+        public void Init(float gameOverPanelAnimationDuration)
         {
-            _gameSettings = gameSettings;
-            _eventsHandler = eventsHandler;
+            _gameOverPanelAnimationDuration = gameOverPanelAnimationDuration;
         }
 
-        public void ShowWinPanel()
+        //public void Init(IBurglarGameSettings gameSettings)
+        //{
+        //    _gameSettings = gameSettings;
+        //}
+
+        public void ShowWinScreen()
         {
             StopAllCoroutines();
             StartCoroutine(ShowGameOverRoutine(0.5f, "Вы выиграли", WinAudioSource, 
                 waitForSoundEnd: true));
         }
 
-        public void ShowLosePanel()
+        public void ShowLoseScreen()
         {
             StopAllCoroutines();
             StartCoroutine(ShowGameOverRoutine(0.1f, "Вы проиграли", LoseAudioSource, 
@@ -102,7 +116,7 @@ namespace BurglarGame
 
         private IEnumerator ShowPanelSmoothly()
         {
-            float duration = _gameSettings.GameOverPanelAnimationDuration;
+            float duration = _gameOverPanelAnimationDuration;
 
             GameOverPanelCanvasGroup.alpha = 0;
             GameOverPanel.SetActive(true);
@@ -120,7 +134,7 @@ namespace BurglarGame
 
         private void OnRestartButtonClick()
         {
-            _eventsHandler?.RaiseRestartGameRequested();
+            RestartButtonClicked?.Invoke();
         }
     }
 }

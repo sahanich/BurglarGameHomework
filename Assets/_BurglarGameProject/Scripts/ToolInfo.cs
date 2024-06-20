@@ -10,5 +10,11 @@ namespace BurglarGame
         public ToolType ToolType { get; private set; }
         [field: SerializeField]
         public int[] PinChangeValues { get; private set; }
+
+        public ToolInfo(ToolType toolType, int[] pinChangeValues)
+        {
+            ToolType = toolType;
+            PinChangeValues = pinChangeValues;
+        }
     }
 }

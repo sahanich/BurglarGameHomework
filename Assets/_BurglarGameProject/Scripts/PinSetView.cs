@@ -2,18 +2,19 @@
 
 namespace BurglarGame
 {
+
     public class PinSetView : MonoBehaviour
     {
         [SerializeField]
-        private PinView[] PinViews;
+        private CanvasAnimatedPinView[] PinViews;
 
-        public void Init(BurglarGameSettings gameSettings)
-        {
-            foreach (var pinView in PinViews)
-            {
-                pinView.Init(gameSettings);
-            }
-        }
+        //public void Init(IBurglarGameSettings gameSettings)
+        //{
+        //    foreach (var pinView in PinViews)
+        //    {
+        //        pinView.Init(gameSettings);
+        //    }
+        //}
 
         public void SetState(GameState gameState)
         {

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Text;
 using TMPro;
 using UnityEngine;
@@ -8,6 +9,8 @@ namespace BurglarGame
 {
     public class ToolView : MonoBehaviour
     {
+        public event Action<ToolInfo> ApplyToolButtonClicked;
+
         private static readonly Dictionary<ToolType, string> _toolNamesMap = new Dictionary<ToolType, string>()
         {
             [ToolType.Drill] = "дрель",
@@ -25,8 +28,8 @@ namespace BurglarGame
         [SerializeField]
         private Button ApplyButton;
 
-        private ToolInfo _toolInfo;
-        private BurglarGameEventsHandler _eventsHandler;
+
+        public ToolInfo ToolInfo { get; private set; }
 
         private void OnEnable()
         {
@@ -38,14 +41,15 @@ namespace BurglarGame
             ApplyButton.onClick.RemoveListener(OnApplyButtonClick);
         }
 
-        public void Init(BurglarGameEventsHandler eventsHandler)
+        public void Init(ToolInfo toolInfo)
         {
-            _eventsHandler = eventsHandler;
+            ToolInfo = toolInfo;
+            RefreshApplyButtonText();
         }
 
         public void SetToolInfo(ToolInfo toolInfo)
         {
-            _toolInfo = toolInfo;
+            ToolInfo = toolInfo;
             RefreshApplyButtonText();
         }
 
@@ -56,17 +60,17 @@ namespace BurglarGame
 
         private void RefreshApplyButtonText()
         {
-            if (_toolInfo == null || _toolInfo.PinChangeValues == null)
+            if (ToolInfo == null || ToolInfo.PinChangeValues == null)
             {
                 Debug.LogError($"{nameof(ToolView)}.{nameof(RefreshApplyButtonText)}. Wrong ToolInfo.");
                 return;
             }
 
-            StringBuilder stringBuilder = new StringBuilder(_toolInfo.PinChangeValues.Length);
+            StringBuilder stringBuilder = new StringBuilder(ToolInfo.PinChangeValues.Length);
 
-            for (int i = 0; i < _toolInfo.PinChangeValues.Length; i++)
+            for (int i = 0; i < ToolInfo.PinChangeValues.Length; i++)
             {
-                int changeValue = _toolInfo.PinChangeValues[i];
+                int changeValue = ToolInfo.PinChangeValues[i];
                 string appendingString;
 
                 if (changeValue == 0)
@@ -92,12 +96,12 @@ namespace BurglarGame
                 }
             }
 
-            ToolInfluenceToLockText.text = $"{stringBuilder}\n{_toolNamesMap[_toolInfo.ToolType]}";
+            ToolInfluenceToLockText.text = $"{stringBuilder}\n{_toolNamesMap[ToolInfo.ToolType]}";
         }
 
         private void OnApplyButtonClick()
         {
-            _eventsHandler?.RaiseToolUseRequested(_toolInfo);
+            ApplyToolButtonClicked?.Invoke(ToolInfo);
 
             if (ToolAudioSource.isPlaying)
             {

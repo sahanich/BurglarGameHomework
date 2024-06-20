@@ -412,7 +412,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.54841775}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0.2507019}
+  m_AnchoredPosition: {x: 0, y: 0.25073242}
   m_SizeDelta: {x: 0, y: -0.37454605}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6273062030148715172
@@ -487,7 +487,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -317}
+  m_AnchoredPosition: {x: 0, y: -316.99997}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4659508281567937012
@@ -562,7 +562,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0.44759214}
-  m_AnchoredPosition: {x: -36.050003, y: 2.927185}
+  m_AnchoredPosition: {x: -36.05002, y: 2.927246}
   m_SizeDelta: {x: 0.1000061, y: 5.863407}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5477707663755351063
@@ -748,7 +748,7 @@ GameObject:
   - component: {fileID: 5907853028809909337}
   - component: {fileID: 4226035059912087423}
   - component: {fileID: 3200495711717737692}
-  - component: {fileID: 344813993774426500}
+  - component: {fileID: 215862719388784722}
   m_Layer: 5
   m_Name: PinPanel
   m_TagString: Untagged
@@ -817,7 +817,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &344813993774426500
+--- !u!114 &215862719388784722
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -826,7 +826,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7567058633081975117}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c43c2211508986e488f5cc88eddb67f5, type: 3}
+  m_Script: {fileID: 11500000, guid: ca7ecce6c09f9e84cafc05fe8644527c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   PinValueText: {fileID: 6919922648825776088}

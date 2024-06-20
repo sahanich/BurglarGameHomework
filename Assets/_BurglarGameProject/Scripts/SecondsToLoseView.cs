@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 namespace BurglarGame
 {
-    public class SecondsToLoseView : MonoBehaviour
+    public class SecondsToLoseView : MonoBehaviour, IGameTimeView
     {
         [SerializeField]
         private Image SecondsToLoseSliderImage;
@@ -16,6 +16,21 @@ namespace BurglarGame
         private int _currentSecondsToLose;
 
         private Coroutine _refreshFillAmountRoutine;
+
+        public void Init(int initialSecondsToLose)
+        {
+            _initialSecondsToLose = initialSecondsToLose;
+        }
+
+        public void SetTime(float timeFromGameStart)
+        {
+            if (timeFromGameStart > _initialSecondsToLose)
+            {
+                return;
+            }
+            _currentSecondsToLose = _initialSecondsToLose - (int)timeFromGameStart;
+            RefreshTimerViewSmoothly();
+        }
 
         public void Init(BurglarGameSettings gameSettings)
         {

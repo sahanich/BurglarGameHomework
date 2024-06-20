@@ -2,6 +2,7 @@ using UnityEngine;
 
 namespace BurglarGame
 {
+
     public class GameManager : MonoBehaviour
     {
         [SerializeField]
@@ -23,9 +24,9 @@ namespace BurglarGame
         private void Awake()
         {
             _eventsHandler = new();
-            PinSetView.Init(GameSettings);
+            //PinSetView.Init(GameSettings);
             ToolSetView.Init(GameSettings, _eventsHandler);
-            GameOverView.Init(GameSettings, _eventsHandler);
+            //GameOverView.Init(GameSettings, _eventsHandler);
             GameTimerView.Init(_eventsHandler);
             SecondsToLoseView.Init(GameSettings);
         }
@@ -209,7 +210,7 @@ namespace BurglarGame
             if (IsWinState(_gameState))
             {
                 StopGame();
-                GameOverView.ShowWinPanel();
+                GameOverView.ShowWinScreen();
             }
         }
 
@@ -228,7 +229,7 @@ namespace BurglarGame
             if (_gameState.SecondsToLoseLeft <= 0)
             {
                 StopGame();
-                GameOverView.ShowLosePanel();
+                GameOverView.ShowLoseScreen();
             }
         }
     }

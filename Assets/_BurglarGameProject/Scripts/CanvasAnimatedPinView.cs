@@ -4,7 +4,13 @@ using UnityEngine;
 
 namespace BurglarGame
 {
-    public class PinView : MonoBehaviour
+    //public interface IPinView
+    //{
+    //    public void Init(int minPinValue, int maxPinValue);
+    //    public void SetPinValue(int newPinValue);
+    //}
+
+    public class CanvasAnimatedPinView : MonoBehaviour
     {
         [SerializeField]
         private TMP_Text PinValueText;
@@ -18,15 +24,15 @@ namespace BurglarGame
         private int _minValue;
         private int _maxValue;
         private int _currentValue;
-
         private float _pinValueChangeAnimationDuration;
+
         private Coroutine _setPinValueSmoothlyRoutine;
 
-        public void Init(BurglarGameSettings gameSettings)
+        public void Init(int minPinValue, int maxPinValue, float pinValueChangeAnimationDuration)
         {
-            _minValue = gameSettings.MinPinValue;
-            _maxValue = gameSettings.MaxPinValue;
-            _pinValueChangeAnimationDuration = gameSettings.PinValueChangeAnimationDuration;
+            _minValue = minPinValue;
+            _maxValue = maxPinValue;
+            _pinValueChangeAnimationDuration = pinValueChangeAnimationDuration;
         }
 
         public void SetInitialPinValue(int newPinValue)

@@ -32,7 +32,7 @@ namespace BurglarGame
 
             foreach (var tool in ToolViews)
             {
-                tool.Init(eventsHandler);
+                //tool.Init(eventsHandler);
             }
 
             UnregisterEventListeners();

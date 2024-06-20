@@ -2,8 +2,22 @@
 
 namespace BurglarGame
 {
+    public interface IBurglarGameSettings
+    {
+        public int PinCount { get; }
+        public int MinPinValue { get; }
+        public int MaxPinValue { get; }
+        public int TargetPinValue { get; }
+        public ToolInfo[] Tools { get; }
+        public int CodingIterationCount { get; }
+        public int SecondsToLose { get; }
+        public float PinValueChangeAnimationDuration { get; }
+        public float GameOverPanelAnimationDuration { get; }
+    }
+
+
     [CreateAssetMenu(fileName = "GameSettings", menuName = "ScriptableObjects/BurglarGameSettings")]
-    public class BurglarGameSettings : ScriptableObject
+    public class BurglarGameSettings : ScriptableObject, IBurglarGameSettings
     {
         [field: Header("Pins Settings")]
         [field: SerializeField]
