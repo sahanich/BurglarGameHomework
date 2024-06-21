@@ -33,6 +33,7 @@ namespace Assets._BurglarGameProject.Scripts.Gameplay
         public void StopGame()
         {
             _timeSystem.StopTimer();
+            _toolsSystem.ToolsController.SetToolsInteractable(false);
         }
 
         public void RegisterListeners()
@@ -86,14 +87,12 @@ namespace Assets._BurglarGameProject.Scripts.Gameplay
         private void SetWinState()
         {
             StopGame();
-            _toolsSystem.ToolsController.SetToolsInteractable(false);
             _gameOverView.ShowWinScreen();
         }
 
         private void SetLoseState()
         {
             StopGame();
-            _toolsSystem.ToolsController.SetToolsInteractable(false);
             _gameOverView.ShowLoseScreen();
         }
 
