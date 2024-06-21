@@ -1,4 +1,4 @@
-using BurglarGame;
+using Assets._BurglarGameProject.Scripts.Settings;
 using UnityEngine;
 using Zenject;
 

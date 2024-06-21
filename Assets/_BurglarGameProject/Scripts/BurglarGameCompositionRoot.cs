@@ -1,4 +1,8 @@
-﻿using BurglarGame.Systems;
+﻿using Assets._BurglarGameProject.Scripts.Gameplay;
+using Assets._BurglarGameProject.Scripts.Pins;
+using Assets._BurglarGameProject.Scripts.Settings;
+using Assets._BurglarGameProject.Scripts.Time;
+using Assets._BurglarGameProject.Scripts.Tools;
 using UnityEngine;
 
 namespace BurglarGame
@@ -31,10 +35,14 @@ namespace BurglarGame
 
         private void Awake()
         {
-            _gameplaySystem = new GameplaySystem(_gameSettings, _pinsView, _toolsView, 
-                _gameOverView, _secondsToLoseView);
             _gameOverView.Init(_gameSettings.GameOverPanelAnimationDuration);
             _secondsToLoseView.Init(_gameSettings.SecondsToLose);
+            _pinsView.Init(_gameSettings.MinPinValue, _gameSettings.MaxPinValue, 
+                _gameSettings.PinValueChangeAnimationDuration);
+
+            _gameplaySystem = new GameplaySystem(_gameSettings, _pinsView, _toolsView, 
+                _gameOverView, _secondsToLoseView);
+
             RegisterListeners();
         }
 
