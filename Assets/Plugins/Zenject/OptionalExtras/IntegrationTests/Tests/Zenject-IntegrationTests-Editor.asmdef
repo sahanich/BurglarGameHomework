@@ -1,5 +1,6 @@
 {
     "name": "Zenject-IntegrationTests-Editor",
+    "rootNamespace": "",
     "references": [
         "Zenject-TestFramework",
         "Zenject",
