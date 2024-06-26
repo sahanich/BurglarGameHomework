@@ -20,8 +20,11 @@ namespace BurglarGame
         [SerializeField]
         private SecondsToLoseView _secondsToLoseView;
 
+        public IBurglarGameSettings GameSettings => _gameSettings;
+
         private GameplaySystem _gameplaySystem;
 
+        
         private void OnEnable()
         {
             RegisterListeners();

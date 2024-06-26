@@ -21,6 +21,15 @@ namespace Assets._BurglarGameProject.Scripts.Gameplay
             _gameOverView = gameOverView;
         }
 
+        public GameplaySystem(PinsSystem pinsSystem, ToolsSystem toolsSystem, TimeSystem timeSystem,
+            IGameOverView gameOverView)
+        {
+            _pinsSystem = pinsSystem;
+            _toolsSystem = toolsSystem;
+            _timeSystem = timeSystem;
+            _gameOverView = gameOverView;
+        }
+
         public void RestartGame()
         {
             _gameOverView.Hide();
