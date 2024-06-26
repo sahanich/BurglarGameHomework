@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Assets._BurglarGameProject.Scripts.Pins
+namespace _BurglarGameProject.Mechanics.Pins.Scripts
 {
     public interface IPinsModel
     {

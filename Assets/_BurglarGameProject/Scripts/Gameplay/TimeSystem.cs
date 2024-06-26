@@ -1,6 +1,7 @@
-﻿using Assets._BurglarGameProject.Scripts.Settings;
+﻿using _BurglarGameProject.Mechanics.Time.Scripts;
+using _BurglarGameProject.Scripts.Settings;
 
-namespace Assets._BurglarGameProject.Scripts.Time
+namespace _BurglarGameProject.Scripts.Gameplay
 {
     public class TimeSystem
     {

@@ -1,7 +1,7 @@
-﻿using Assets._BurglarGameProject.Scripts.Tools;
+﻿using _BurglarGameProject.Mechanics.Tools.Scripts;
 using UnityEngine;
 
-namespace Assets._BurglarGameProject.Scripts.Settings
+namespace _BurglarGameProject.Scripts.Settings
 {
     [CreateAssetMenu(fileName = "GameSettings", menuName = "ScriptableObjects/BurglarGameSettings")]
     public class BurglarGameSettings : ScriptableObject, IBurglarGameSettings

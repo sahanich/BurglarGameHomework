@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Assets._BurglarGameProject.Scripts.Pins
+namespace _BurglarGameProject.Mechanics.Pins.Scripts
 {
     public sealed class ToolBasedPinsController : PinsController
     {

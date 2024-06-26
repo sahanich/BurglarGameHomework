@@ -1,17 +1,19 @@
 using System;
 using System.Collections;
 using System.Linq;
-using Assets._BurglarGameProject.Scripts.Gameplay;
-using Assets._BurglarGameProject.Scripts.Pins;
-using Assets._BurglarGameProject.Scripts.Settings;
-using Assets._BurglarGameProject.Scripts.Time;
-using Assets._BurglarGameProject.Scripts.Tools;
-using BurglarGame;
+using _BurglarGameProject.Mechanics.Pins.UnitTests.EditorTests;
+using _BurglarGameProject.Mechanics.Time.Scripts;
+using _BurglarGameProject.Mechanics.Tools.Scripts;
+using _BurglarGameProject.Mechanics.Tools.UnitTests.EditorTests;
+using _BurglarGameProject.Scripts;
+using _BurglarGameProject.Scripts.Gameplay;
+using _BurglarGameProject.Scripts.Settings;
+using _BurglarGameProject.Scripts.Views;
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
 
-namespace Tests
+namespace _BurglarGameProject.UnitTests.EditorTests
 {
     public class TestGameTimeView : IGameTimeView
     {

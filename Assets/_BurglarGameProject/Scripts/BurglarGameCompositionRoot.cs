@@ -1,11 +1,12 @@
-﻿using Assets._BurglarGameProject.Scripts.Gameplay;
-using Assets._BurglarGameProject.Scripts.Pins;
-using Assets._BurglarGameProject.Scripts.Settings;
-using Assets._BurglarGameProject.Scripts.Time;
-using Assets._BurglarGameProject.Scripts.Tools;
+﻿using _BurglarGameProject.Mechanics.Pins.Scripts;
+using _BurglarGameProject.Mechanics.Time.Scripts;
+using _BurglarGameProject.Mechanics.Tools.Scripts;
+using _BurglarGameProject.Scripts.Gameplay;
+using _BurglarGameProject.Scripts.Settings;
+using _BurglarGameProject.Scripts.Views;
 using UnityEngine;
 
-namespace BurglarGame
+namespace _BurglarGameProject.Scripts
 {
     public class BurglarGameCompositionRoot : MonoBehaviour
     {

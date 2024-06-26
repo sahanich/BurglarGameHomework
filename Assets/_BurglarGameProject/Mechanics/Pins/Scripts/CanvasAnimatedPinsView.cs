@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Assets._BurglarGameProject.Scripts.Pins
+namespace _BurglarGameProject.Mechanics.Pins.Scripts
 {
     public class CanvasAnimatedPinsView : MonoBehaviour, IPinsView
     {

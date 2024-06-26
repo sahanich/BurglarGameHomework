@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Assets._BurglarGameProject.Scripts.Tools
+namespace _BurglarGameProject.Mechanics.Tools.Scripts
 {
     [Serializable]
     public sealed class ToolInfo

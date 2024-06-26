@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Assets._BurglarGameProject.Scripts.Tools
+namespace _BurglarGameProject.Mechanics.Tools.Scripts
 {
     public abstract class ToolsController
     {

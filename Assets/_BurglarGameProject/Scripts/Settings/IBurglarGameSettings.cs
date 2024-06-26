@@ -1,6 +1,6 @@
-﻿using Assets._BurglarGameProject.Scripts.Tools;
+﻿using _BurglarGameProject.Mechanics.Tools.Scripts;
 
-namespace Assets._BurglarGameProject.Scripts.Settings
+namespace _BurglarGameProject.Scripts.Settings
 {
     public interface IBurglarGameSettings
     {

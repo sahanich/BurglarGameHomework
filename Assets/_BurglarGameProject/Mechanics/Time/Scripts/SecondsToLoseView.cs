@@ -3,7 +3,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Assets._BurglarGameProject.Scripts.Time
+namespace _BurglarGameProject.Mechanics.Time.Scripts
 {
     public class SecondsToLoseView : MonoBehaviour, IGameTimeView
     {

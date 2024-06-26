@@ -1,8 +1,9 @@
-﻿using Assets._BurglarGameProject.Scripts.Settings;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+using _BurglarGameProject.Mechanics.Pins.Scripts;
+using _BurglarGameProject.Scripts.Settings;
 
-namespace Assets._BurglarGameProject.Scripts.Pins
+namespace _BurglarGameProject.Scripts.Gameplay
 {
     public class PinsSystem
     {

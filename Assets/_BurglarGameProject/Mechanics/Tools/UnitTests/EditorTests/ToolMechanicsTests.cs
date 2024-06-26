@@ -1,9 +1,9 @@
 using System;
 using System.Linq;
-using Assets._BurglarGameProject.Scripts.Tools;
+using _BurglarGameProject.Mechanics.Tools.Scripts;
 using NUnit.Framework;
 
-namespace Tests
+namespace _BurglarGameProject.Mechanics.Tools.UnitTests.EditorTests
 {
     public class TestToolsView : IToolsView
     {

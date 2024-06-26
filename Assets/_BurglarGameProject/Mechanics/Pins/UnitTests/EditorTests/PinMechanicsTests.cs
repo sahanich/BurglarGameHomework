@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
-using Assets._BurglarGameProject.Scripts.Pins;
+using _BurglarGameProject.Mechanics.Pins.Scripts;
 using NUnit.Framework;
 
-namespace Tests
+namespace _BurglarGameProject.Mechanics.Pins.UnitTests.EditorTests
 {
     public class TestPinsView : IPinsView
     {

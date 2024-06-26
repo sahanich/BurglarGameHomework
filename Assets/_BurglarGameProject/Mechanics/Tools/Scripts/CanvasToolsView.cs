@@ -2,7 +2,7 @@
 using System.Linq;
 using UnityEngine;
 
-namespace Assets._BurglarGameProject.Scripts.Tools
+namespace _BurglarGameProject.Mechanics.Tools.Scripts
 {
     public class CanvasToolsView : MonoBehaviour, IToolsView
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 
-namespace Assets._BurglarGameProject.Scripts.Pins
+namespace _BurglarGameProject.Mechanics.Pins.Scripts
 {
     public abstract class PinsModel : IPinsModel
     {

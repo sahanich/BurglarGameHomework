@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 
-namespace Assets._BurglarGameProject.Scripts.Tools
+namespace _BurglarGameProject.Mechanics.Tools.Scripts
 {
     public class ToolsModel : IToolsModel
     {

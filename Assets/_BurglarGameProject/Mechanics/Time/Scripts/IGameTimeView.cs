@@ -1,4 +1,4 @@
-﻿namespace Assets._BurglarGameProject.Scripts.Time
+﻿namespace _BurglarGameProject.Mechanics.Time.Scripts
 {
     public interface IGameTimeView
     {

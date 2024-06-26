@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Assets._BurglarGameProject.Scripts.Gameplay
+namespace _BurglarGameProject.Scripts.Views
 {
     public class GameOverView : MonoBehaviour, IGameOverView
     {

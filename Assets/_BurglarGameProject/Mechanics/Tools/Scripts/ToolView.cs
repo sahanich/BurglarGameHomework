@@ -5,7 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Assets._BurglarGameProject.Scripts.Tools
+namespace _BurglarGameProject.Mechanics.Tools.Scripts
 {
     public class ToolView : MonoBehaviour
     {

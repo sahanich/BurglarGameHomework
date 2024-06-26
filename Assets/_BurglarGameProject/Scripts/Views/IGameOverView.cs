@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Assets._BurglarGameProject.Scripts.Gameplay
+namespace _BurglarGameProject.Scripts.Views
 {
     public interface IGameOverView
     {

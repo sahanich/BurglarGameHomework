@@ -1,6 +1,7 @@
-﻿using Assets._BurglarGameProject.Scripts.Settings;
+﻿using _BurglarGameProject.Mechanics.Tools.Scripts;
+using _BurglarGameProject.Scripts.Settings;
 
-namespace Assets._BurglarGameProject.Scripts.Tools
+namespace _BurglarGameProject.Scripts.Gameplay
 {
     public class ToolsSystem
     {
