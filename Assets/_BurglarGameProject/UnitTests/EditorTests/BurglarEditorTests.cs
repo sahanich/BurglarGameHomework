@@ -1,17 +1,14 @@
 using System;
-using System.Collections;
 using System.Linq;
 using _BurglarGameProject.Mechanics.Pins.UnitTests.EditorTests;
 using _BurglarGameProject.Mechanics.Time.Scripts;
 using _BurglarGameProject.Mechanics.Tools.Scripts;
 using _BurglarGameProject.Mechanics.Tools.UnitTests.EditorTests;
-using _BurglarGameProject.Scripts;
 using _BurglarGameProject.Scripts.Gameplay;
 using _BurglarGameProject.Scripts.Settings;
 using _BurglarGameProject.Scripts.Views;
 using NUnit.Framework;
 using UnityEngine;
-using UnityEngine.TestTools;
 
 namespace _BurglarGameProject.UnitTests.EditorTests
 {
@@ -42,7 +39,6 @@ namespace _BurglarGameProject.UnitTests.EditorTests
         {
             RestartButtonClicked?.Invoke();
         }
-
     }
 
     public class BurglarEditorTest
@@ -62,12 +58,15 @@ namespace _BurglarGameProject.UnitTests.EditorTests
         [SetUp]
         public void Setup()
         {
-            BurglarGameCompositionRoot mainCompositionRoot = 
-                GameObject.FindObjectOfType<BurglarGameCompositionRoot>();
-            
-            Assert.IsNotNull(mainCompositionRoot);
+            var gameSettingsArray = Resources.FindObjectsOfTypeAll<BurglarGameSettings>();
+            if (gameSettingsArray.Length == 0)
+            {
+                gameSettingsArray = Resources.LoadAll<BurglarGameSettings>("");
+            }
 
-            _gameSettings = mainCompositionRoot.GameSettings;
+            Assert.IsTrue(gameSettingsArray.Length > 0);
+            
+            _gameSettings = gameSettingsArray[0];
 
             Assert.IsNotNull(_gameSettings);
 
@@ -97,15 +96,8 @@ namespace _BurglarGameProject.UnitTests.EditorTests
         {
             int[] targetPinValues = _pinsSystem.PinsModel.TargetState;
 
-            bool isTargetStateCorrelatesSettings = true;
-            foreach (int targetPinValue in targetPinValues)
-            {
-                if (targetPinValue != _gameSettings.TargetPinValue)
-                {
-                    isTargetStateCorrelatesSettings = false;
-                    break;
-                }
-            }
+            bool isTargetStateCorrelatesSettings =
+                targetPinValues.All(targetPinValue => targetPinValue == _gameSettings.TargetPinValue);
 
             Assert.IsTrue(isTargetStateCorrelatesSettings);
         }
@@ -116,15 +108,8 @@ namespace _BurglarGameProject.UnitTests.EditorTests
             _pinsSystem.Reset();
             int[] pinValues = _pinsSystem.PinsModel.State;
 
-            bool isStartStateEqualTargetState = true;
-            foreach (int pinValue in pinValues)
-            {
-                if (pinValue != _gameSettings.TargetPinValue)
-                {
-                    isStartStateEqualTargetState = false;
-                    break;
-                }
-            }
+            bool isStartStateEqualTargetState =
+                pinValues.All(pinValue => pinValue == _gameSettings.TargetPinValue);
 
             Assert.IsFalse(isStartStateEqualTargetState);
         }
@@ -132,7 +117,7 @@ namespace _BurglarGameProject.UnitTests.EditorTests
         [Test]
         public void IsToolsUseFromViewCorrect()
         {
-            _pinsSystem.PinsModel.SetState(new int[]{ 5, 5, 5});
+            _pinsSystem.PinsModel.SetState(new int[] {5, 5, 5});
             ToolInfo toolToUse = _toolsSystem.ToolsModel.ToolInfos[0];
 
             int[] endPinValues = _pinsSystem.PinsModel.State.ToArray();
@@ -147,16 +132,6 @@ namespace _BurglarGameProject.UnitTests.EditorTests
             {
                 Assert.AreEqual(_pinsSystem.PinsModel.State[i], endPinValues[i]);
             }
-        }
-
-        // A UnityTest behaves like a coroutine in Play Mode. In Edit Mode you can use
-        // `yield return null;` to skip a frame.
-        [UnityTest]
-        public IEnumerator BurglarEditorTestWithEnumeratorPasses()
-        {
-            // Use the Assert class to test conditions.
-            // Use yield to skip a frame.
-            yield return null;
         }
     }
 }
