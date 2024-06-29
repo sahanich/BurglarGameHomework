@@ -30,38 +30,24 @@ namespace _BurglarGameProject.Mechanics.Pins.Scripts
 
             for (int i = 0; i < addingPinValues.Length; i++)
             {
-                newPinValues[i] = newPinValues[i] + addingPinValues[i];
+                newPinValues[i] += addingPinValues[i];
             }
 
             _model.SetState(newPinValues);
         }
 
-        private void ShuffleArray(object[] array)
-        {
-            for (int i = 0; i < array.Length - 1; i++)
-            {
-                int randomIndex = _random.Next(i, array.Length);
-                object tempElement = array[i];
-                array[i] = array[randomIndex];
-                array[randomIndex] = tempElement;
-            }
-        }
-
-        private void ShuffleList<T>(List<T> array)
+        private void ShuffleList<T>(IList<T> array)
         {
             for (int i = 0; i < array.Count - 1; i++)
             {
                 int randomIndex = _random.Next(i, array.Count);
-                T tempElement = array[i];
-                array[i] = array[randomIndex];
-                array[randomIndex] = tempElement;
+                (array[i], array[randomIndex]) = (array[randomIndex], array[i]);
             }
         }
 
         private bool IsRevertedToolApplyingResultInPinValuesRange(int[] toolPinChangingValues, int[] pinValues)
         {
             bool resultPinValueIsInRange = true;
-
             for (int i = 0; i < pinValues.Length; i++)
             {
                 int pinValue = pinValues[i];
@@ -92,7 +78,6 @@ namespace _BurglarGameProject.Mechanics.Pins.Scripts
                 pinValues[i] = pinValue - toolChangeValue;
             }
             return true;
-
         }
 
         private int[] CreatePinStates(List<int[]> tools)
@@ -120,12 +105,7 @@ namespace _BurglarGameProject.Mechanics.Pins.Scripts
                     {
                         --tryCountToApplyTool;
                     }
-
-                    ++currentToolIndex;
-                    if (currentToolIndex >= randomOrderedToolInfos.Count)
-                    {
-                        currentToolIndex = 0;
-                    }
+                    currentToolIndex = (currentToolIndex + 1) % randomOrderedToolInfos.Count;
                 }
             }
 
