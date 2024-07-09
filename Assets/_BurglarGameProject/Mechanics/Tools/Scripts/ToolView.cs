@@ -11,22 +11,18 @@ namespace _BurglarGameProject.Mechanics.Tools.Scripts
     {
         public event Action<ToolInfo> ApplyToolButtonClicked;
 
-        private static readonly Dictionary<ToolType, string> _toolNamesMap = new Dictionary<ToolType, string>()
+        private static readonly Dictionary<ToolType, string> _toolNamesMap = new()
         {
             [ToolType.Drill] = "дрель",
             [ToolType.Hammer] = "молоток",
             [ToolType.SkeletonKey] = "отмычка",
         };
 
-        [field: SerializeField]
-        public ToolType ToolType { get; private set; }
+        [field: SerializeField] public ToolType ToolType { get; private set; }
 
-        [SerializeField]
-        private AudioSource ToolAudioSource;
-        [SerializeField]
-        private TMP_Text ToolInfluenceToLockText;
-        [SerializeField]
-        private Button ApplyButton;
+        [SerializeField] private AudioSource ToolAudioSource;
+        [SerializeField] private TMP_Text ToolInfluenceToLockText;
+        [SerializeField] private Button ApplyButton;
 
 
         public ToolInfo ToolInfo { get; private set; }
@@ -86,14 +82,7 @@ namespace _BurglarGameProject.Mechanics.Tools.Scripts
                     appendingString = $"{changeValue}";
                 }
 
-                if (i == 0)
-                {
-                    stringBuilder.Append($"{appendingString}");
-                }
-                else
-                {
-                    stringBuilder.Append($"|{appendingString}");
-                }
+                stringBuilder.Append(i == 0 ? $"{appendingString}" : $"|{appendingString}");
             }
 
             ToolInfluenceToLockText.text = $"{stringBuilder}\n{_toolNamesMap[ToolInfo.ToolType]}";
@@ -107,6 +96,7 @@ namespace _BurglarGameProject.Mechanics.Tools.Scripts
             {
                 ToolAudioSource.Stop();
             }
+
             ToolAudioSource.Play();
         }
     }

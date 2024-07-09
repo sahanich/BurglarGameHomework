@@ -23,6 +23,16 @@ namespace _BurglarGameProject.Mechanics.Tools.UnitTests.EditorTests
             }
         }
 
+        public void RegisterToolUseHandler(IToolUseRequestHandler handler)
+        {
+            
+        }
+
+        public void UnregisterToolUseHandler(IToolUseRequestHandler handler)
+        {
+            
+        }
+
         public bool IsToolInteractable(ToolType toolType)
         {
             for (int i = 0; i < ToolInfos.Length; i++)
@@ -32,6 +42,7 @@ namespace _BurglarGameProject.Mechanics.Tools.UnitTests.EditorTests
                     return Interactables[i];
                 }
             }
+
             return false;
         }
 
@@ -61,9 +72,9 @@ namespace _BurglarGameProject.Mechanics.Tools.UnitTests.EditorTests
         {
             ToolInfo[] toolInfos = new ToolInfo[]
             {
-                new ToolInfo(ToolType.SkeletonKey, new int[] { 1, -1, 0 }),
-                new ToolInfo(ToolType.Drill, new int[] { -1, 2, -1 }),
-                new ToolInfo(ToolType.Hammer, new int[] { -1, 1, 1 })
+                new ToolInfo(ToolType.SkeletonKey, new int[] {1, -1, 0}),
+                new ToolInfo(ToolType.Drill, new int[] {-1, 2, -1}),
+                new ToolInfo(ToolType.Hammer, new int[] {-1, 1, 1})
             };
 
             _toolsModel = new ToolsModel(toolInfos);
@@ -83,12 +94,12 @@ namespace _BurglarGameProject.Mechanics.Tools.UnitTests.EditorTests
         [Test]
         public void ToolCanBeUsedTest()
         {
-            ToolInfo toolInfo = new ToolInfo(ToolType.SkeletonKey, new int[] { 1, -1, 0 });
+            ToolInfo toolInfo = new ToolInfo(ToolType.SkeletonKey, new int[] {1, -1, 0});
 
-            int[] pinValues = new int[] { 5, 5, 5 };
+            int[] pinValues = new int[] {5, 5, 5};
             Assert.IsTrue(_toolsController.IsToolCanBeUsed(toolInfo, pinValues, 1, 10));
 
-            pinValues = new int[] { 4, 1, 5 };
+            pinValues = new int[] {4, 1, 5};
 
             Assert.IsFalse(_toolsController.IsToolCanBeUsed(toolInfo, pinValues, 1, 10));
         }
@@ -98,11 +109,11 @@ namespace _BurglarGameProject.Mechanics.Tools.UnitTests.EditorTests
         {
             ToolInfo[] toolInfos = new ToolInfo[]
             {
-                new ToolInfo(ToolType.SkeletonKey, new int[] { 1, -1, 0 }),
-                new ToolInfo(ToolType.Drill, new int[] { -1, 2, -1 }),
-                new ToolInfo(ToolType.Hammer, new int[] { -1, 1, 1 })
+                new ToolInfo(ToolType.SkeletonKey, new int[] {1, -1, 0}),
+                new ToolInfo(ToolType.Drill, new int[] {-1, 2, -1}),
+                new ToolInfo(ToolType.Hammer, new int[] {-1, 1, 1})
             };
-            int[] pinValues = new int[] { 5, 5, 5 };
+            int[] pinValues = new int[] {5, 5, 5};
 
             _toolsModel.SetToolInfos(toolInfos);
             _toolsController.SetToolsInteractableByPinValues(pinValues, 1, 10);
@@ -111,14 +122,14 @@ namespace _BurglarGameProject.Mechanics.Tools.UnitTests.EditorTests
                 Assert.IsTrue(_toolsView.IsToolInteractable(tool.ToolType));
             }
 
-            pinValues = new int[] { 10, 10, 10 };
+            pinValues = new int[] {10, 10, 10};
             _toolsController.SetToolsInteractableByPinValues(pinValues, 1, 10);
             foreach (var tool in _toolsModel.ToolInfos)
             {
                 Assert.IsFalse(_toolsView.IsToolInteractable(tool.ToolType));
             }
 
-            pinValues = new int[] { 1, 1, 1 };
+            pinValues = new int[] {1, 1, 1};
             _toolsController.SetToolsInteractableByPinValues(pinValues, 1, 10);
             foreach (var tool in _toolsModel.ToolInfos)
             {
@@ -147,7 +158,7 @@ namespace _BurglarGameProject.Mechanics.Tools.UnitTests.EditorTests
 
             ToolInfo[] toolInfos = new ToolInfo[]
             {
-                new ToolInfo(ToolType.SkeletonKey, new int[] { 3, -5, 4 }),
+                new ToolInfo(ToolType.SkeletonKey, new int[] {3, -5, 4}),
             };
 
             _toolsModel.SetToolInfos(toolInfos);
