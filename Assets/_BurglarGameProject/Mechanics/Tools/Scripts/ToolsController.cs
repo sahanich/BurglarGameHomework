@@ -1,15 +1,17 @@
 ﻿using System;
+using Plugins.CommonFunc.Events;
 using UnityEngine;
 
 namespace _BurglarGameProject.Mechanics.Tools.Scripts
 {
-    public abstract class ToolsController : IToolUseRequestHandler
+    
+    public abstract class ToolsController : IEventHandler<ToolUseEventSignal>
     {
         public event Action<ToolInfo> ToolUseRequested;
 
         private IToolsModel _toolsModel;
         private IToolsView _toolsView;
-
+        
         protected ToolsController(IToolsModel toolsModel, IToolsView toolsView)
         {
             _toolsModel = toolsModel;
@@ -17,11 +19,16 @@ namespace _BurglarGameProject.Mechanics.Tools.Scripts
             _toolsView.SetTools(_toolsModel.ToolInfos);
         }
 
+        public void HandleEvent(ToolUseEventSignal signal)
+        {
+            ToolUseRequested?.Invoke(signal.ToolInfo);
+        }
+
         ~ToolsController()
         {
             Debug.Log("destroyed");
         }
-        
+
         public void RegisterListeners()
         {
             if (_toolsModel != null)
@@ -30,7 +37,7 @@ namespace _BurglarGameProject.Mechanics.Tools.Scripts
             }
             if (_toolsView != null)
             {
-                _toolsView.RegisterToolUseHandler(this);
+                _toolsView.RegisterEventHandler(this);
             }
         }
 
@@ -42,7 +49,7 @@ namespace _BurglarGameProject.Mechanics.Tools.Scripts
             }
             if (_toolsView != null)
             {
-                _toolsView.UnregisterToolUseHandler(this);
+                _toolsView.UnregisterEventHandler(this);
             }
         }
 
@@ -67,12 +74,7 @@ namespace _BurglarGameProject.Mechanics.Tools.Scripts
         {
             return true;
         }
-        
-        public void OnToolUseRequested(ToolInfo toolInfo)
-        {
-            ToolUseRequested?.Invoke(toolInfo);
-        }
-        
+
         private void OnModelStateChanged()
         {
             _toolsView.SetTools(_toolsModel.ToolInfos);

@@ -33,7 +33,7 @@ namespace _BurglarGameProject.Scripts
 
         private void OnDisable()
         {
-            UnregisterListeners();
+            // UnregisterListeners();
             _gameplaySystem?.StopGame();
         }
 

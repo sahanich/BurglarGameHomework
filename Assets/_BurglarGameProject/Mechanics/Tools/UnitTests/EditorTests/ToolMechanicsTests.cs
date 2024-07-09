@@ -1,13 +1,17 @@
 using System;
+using System.Collections;
 using System.Linq;
 using _BurglarGameProject.Mechanics.Tools.Scripts;
 using NUnit.Framework;
+using Plugins.CommonFunc.Events;
+using UnityEngine;
+using UnityEngine.TestTools;
 
 namespace _BurglarGameProject.Mechanics.Tools.UnitTests.EditorTests
 {
     public class TestToolsView : IToolsView
     {
-        public event Action<ToolInfo> ToolUseRequested;
+        private readonly EventHandlingProcessor<ToolUseEventSignal> _eventHandlingProcessor = new();
 
         public ToolInfo[] ToolInfos { get; private set; }
         public bool[] Interactables { get; private set; }
@@ -21,16 +25,6 @@ namespace _BurglarGameProject.Mechanics.Tools.UnitTests.EditorTests
                     Interactables[i] = interactable;
                 }
             }
-        }
-
-        public void RegisterToolUseHandler(IToolUseRequestHandler handler)
-        {
-            
-        }
-
-        public void UnregisterToolUseHandler(IToolUseRequestHandler handler)
-        {
-            
         }
 
         public bool IsToolInteractable(ToolType toolType)
@@ -55,7 +49,17 @@ namespace _BurglarGameProject.Mechanics.Tools.UnitTests.EditorTests
         public void RaiseToolButtonClick(ToolType toolType)
         {
             ToolInfo tool = ToolInfos.FirstOrDefault(t => t.ToolType == toolType);
-            ToolUseRequested?.Invoke(tool);
+            _eventHandlingProcessor.FireEvent(new ToolUseEventSignal() {ToolInfo = tool});
+        }
+
+        public void RegisterEventHandler(IEventHandler<ToolUseEventSignal> handler)
+        {
+            _eventHandlingProcessor.RegisterHandler(handler);
+        }
+
+        public void UnregisterEventHandler(IEventHandler<ToolUseEventSignal> handler)
+        {
+            _eventHandlingProcessor.UnregisterHandler(handler);
         }
     }
 
@@ -70,11 +74,11 @@ namespace _BurglarGameProject.Mechanics.Tools.UnitTests.EditorTests
         [SetUp]
         public void SetUp()
         {
-            ToolInfo[] toolInfos = new ToolInfo[]
+            ToolInfo[] toolInfos =
             {
-                new ToolInfo(ToolType.SkeletonKey, new int[] {1, -1, 0}),
-                new ToolInfo(ToolType.Drill, new int[] {-1, 2, -1}),
-                new ToolInfo(ToolType.Hammer, new int[] {-1, 1, 1})
+                new(ToolType.SkeletonKey, new int[] {1, -1, 0}),
+                new(ToolType.Drill, new int[] {-1, 2, -1}),
+                new(ToolType.Hammer, new int[] {-1, 1, 1})
             };
 
             _toolsModel = new ToolsModel(toolInfos);
@@ -107,13 +111,13 @@ namespace _BurglarGameProject.Mechanics.Tools.UnitTests.EditorTests
         [Test]
         public void ToolInteractableChangeTest()
         {
-            ToolInfo[] toolInfos = new ToolInfo[]
+            ToolInfo[] toolInfos =
             {
-                new ToolInfo(ToolType.SkeletonKey, new int[] {1, -1, 0}),
-                new ToolInfo(ToolType.Drill, new int[] {-1, 2, -1}),
-                new ToolInfo(ToolType.Hammer, new int[] {-1, 1, 1})
+                new(ToolType.SkeletonKey, new int[] {1, -1, 0}),
+                new(ToolType.Drill, new int[] {-1, 2, -1}),
+                new(ToolType.Hammer, new int[] {-1, 1, 1})
             };
-            int[] pinValues = new int[] {5, 5, 5};
+            int[] pinValues = {5, 5, 5};
 
             _toolsModel.SetToolInfos(toolInfos);
             _toolsController.SetToolsInteractableByPinValues(pinValues, 1, 10);
@@ -122,14 +126,14 @@ namespace _BurglarGameProject.Mechanics.Tools.UnitTests.EditorTests
                 Assert.IsTrue(_toolsView.IsToolInteractable(tool.ToolType));
             }
 
-            pinValues = new int[] {10, 10, 10};
+            pinValues = new[] {10, 10, 10};
             _toolsController.SetToolsInteractableByPinValues(pinValues, 1, 10);
             foreach (var tool in _toolsModel.ToolInfos)
             {
                 Assert.IsFalse(_toolsView.IsToolInteractable(tool.ToolType));
             }
 
-            pinValues = new int[] {1, 1, 1};
+            pinValues = new[] {1, 1, 1};
             _toolsController.SetToolsInteractableByPinValues(pinValues, 1, 10);
             foreach (var tool in _toolsModel.ToolInfos)
             {
@@ -156,9 +160,9 @@ namespace _BurglarGameProject.Mechanics.Tools.UnitTests.EditorTests
                 Assert.IsTrue(AreToolsEqual(_toolsModel.ToolInfos[i], _toolsView.ToolInfos[i]));
             }
 
-            ToolInfo[] toolInfos = new ToolInfo[]
+            ToolInfo[] toolInfos =
             {
-                new ToolInfo(ToolType.SkeletonKey, new int[] {3, -5, 4}),
+                new(ToolType.SkeletonKey, new int[] {3, -5, 4}),
             };
 
             _toolsModel.SetToolInfos(toolInfos);
@@ -166,6 +170,26 @@ namespace _BurglarGameProject.Mechanics.Tools.UnitTests.EditorTests
             {
                 Assert.IsTrue(AreToolsEqual(_toolsModel.ToolInfos[i], _toolsView.ToolInfos[i]));
             }
+        }
+
+        [UnityTest]
+        public IEnumerator CheckForPinControllerFree()
+        {
+            // DateTime startTime = DateTime.Now;v
+            // _toolsController.RegisterListeners();
+            // _toolsController.ToolUseRequested += OnToolUseRequested;
+            _toolsController = null;
+            yield return null;
+            System.GC.Collect();
+            DateTime endTime = DateTime.Now + TimeSpan.FromSeconds(1);
+            while (DateTime.Now < endTime)
+            {
+                yield return null;
+                // System.GC.Collect();
+            }
+            
+            Assert.IsNull(_toolsController);
+            Debug.Log("Finished");
         }
 
         private bool AreToolsEqual(ToolInfo tool1, ToolInfo tool2)

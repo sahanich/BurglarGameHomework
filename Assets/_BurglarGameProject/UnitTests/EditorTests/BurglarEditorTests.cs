@@ -73,7 +73,7 @@ namespace _BurglarGameProject.UnitTests.EditorTests
             _gameOverView = new TestGameOverView();
             _gameTimeView = new TestGameTimeView();
             _pinsView = new TestPinsView();
-            _toolsView = new TestToolsView();
+            _toolsView = null;//;new TestToolsView();
 
             _pinsSystem = new PinsSystem(_gameSettings, _pinsView);
             _toolsSystem = new ToolsSystem(_gameSettings, _toolsView);

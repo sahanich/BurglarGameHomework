@@ -1,19 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
+using Plugins.CommonFunc.Events;
 using UnityEngine;
 
 namespace _BurglarGameProject.Mechanics.Tools.Scripts
 {
     public class CanvasToolsView : MonoBehaviour, IToolsView
     {
-        // public event Action<ToolInfo> ToolUseRequested;
-
         [SerializeField]
         private ToolView[] ToolViews;
-
-        private readonly List<WeakReference<IToolUseRequestHandler>> _toolUseRequestHandlers = new();
         
+        private readonly EventHandlingProcessor<ToolUseEventSignal> _eventHandlingProcessor = new();
+
         private void OnEnable()
         {
             RegisterEventListeners();
@@ -26,9 +23,9 @@ namespace _BurglarGameProject.Mechanics.Tools.Scripts
 
         private void Update()
         {
-            foreach (var reference in _toolUseRequestHandlers)
+            foreach (var reference in _eventHandlingProcessor._handlers)
             {
-                if (!reference.TryGetTarget(out IToolUseRequestHandler handler))
+                if (!reference.TryGetTarget(out var handler))
                 {
                     Debug.Log("reference.TryGetTarget fail");
                 }
@@ -69,23 +66,16 @@ namespace _BurglarGameProject.Mechanics.Tools.Scripts
             }
         }
 
-        public void RegisterToolUseHandler(IToolUseRequestHandler handler)
+        public void RegisterEventHandler(IEventHandler<ToolUseEventSignal> handler)
         {
-            if (_toolUseRequestHandlers.Any(handlerReference => 
-                    handlerReference.TryGetTarget(out IToolUseRequestHandler target) && target == handler))
-            {
-                return;
-            }
-
-            _toolUseRequestHandlers.Add(new WeakReference<IToolUseRequestHandler>(handler));
+            _eventHandlingProcessor.RegisterHandler(handler);
         }
 
-        public void UnregisterToolUseHandler(IToolUseRequestHandler handler)
+        public void UnregisterEventHandler(IEventHandler<ToolUseEventSignal> handler)
         {
-            _toolUseRequestHandlers.RemoveAll(handlerReference =>
-                handlerReference.TryGetTarget(out IToolUseRequestHandler target) && target  == handler);
+            _eventHandlingProcessor.UnregisterHandler(handler);
         }
-        
+
         private void RegisterEventListeners()
         {
             UnregisterEventListeners();
@@ -106,15 +96,7 @@ namespace _BurglarGameProject.Mechanics.Tools.Scripts
 
         private void OnToolButtonClicked(ToolInfo toolInfo)
         {
-            // ToolUseRequested?.Invoke(toolInfo);
-            foreach (var handlerReference in _toolUseRequestHandlers)
-            {
-                if (handlerReference.TryGetTarget(out IToolUseRequestHandler handler))
-                {
-                    handler.OnToolUseRequested(toolInfo);
-                }
-            }
-        }
-
+            _eventHandlingProcessor.FireEvent(new ToolUseEventSignal(){ToolInfo = toolInfo});
+        }        
     }
 }
